@@ -7,8 +7,8 @@ import spring.MemberDao;
 @Configuration
 public class AppConf1 {
 
-    @Bean
-    public MemberDao memberDao(){
-        return new MemberDao();
-    }
+//    @Bean
+//    public MemberDao memberDao(){
+//        return new MemberDao();
+//    }
 }
