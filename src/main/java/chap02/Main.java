@@ -8,9 +8,9 @@ public class Main {
 
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppContext.class);
         Greeter g1 = ctx.getBean("greeter", Greeter.class);
-        Greeter g2 = ctx.getBean("greeter", Greeter.class);
+        Greeter g2 = ctx.getBean("greeter1", Greeter.class);
 
-        System.out.println("g1==g2"+(g1==g2)); //true 예상
+        System.out.println("g1==g2"+(g1==g2)); //false 예상
 
         ctx.close();
 
