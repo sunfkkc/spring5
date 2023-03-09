@@ -22,7 +22,6 @@ public class AppCtx {
     @Bean
     public ChangePasswordService changePasswordService(){
         ChangePasswordService service = new ChangePasswordService();
-        service.setMemberDao(memberDao());
         return service;
     }
 }
