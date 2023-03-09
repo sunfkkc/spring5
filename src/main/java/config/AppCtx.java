@@ -1,5 +1,6 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import spring.ChangePasswordService;
@@ -15,7 +16,8 @@ public class AppCtx {
     }
 
     @Bean
-    public MemberDao memberDao(){
+    @Qualifier("changePwd")
+    public MemberDao memberDao2(){
         return new MemberDao();
     }
 
