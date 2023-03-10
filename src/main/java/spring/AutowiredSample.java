@@ -12,8 +12,8 @@ public class AutowiredSample {
         this.someInjection = new SomeInjection();
     }
 
-    @Autowired(required = false)
-    public void setSomeInjection(SomeInjection someInjection) {
+    @Autowired
+    public void setSomeInjection(@Nullable SomeInjection someInjection) {
         this.someInjection = someInjection;
     }
 
