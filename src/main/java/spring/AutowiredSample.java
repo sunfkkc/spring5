@@ -1,13 +1,13 @@
 package spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class AutowiredSample {
+
 
     private SomeInjection someInjection;
 
-    public AutowiredSample() {
-        this.someInjection = new SomeInjection();
-    }
-
+    @Autowired
     public void setSomeInjection(SomeInjection someInjection) {
         this.someInjection = someInjection;
     }
