@@ -14,7 +14,13 @@ public class AutowiredSample {
 
     public void print(){
 
-        someInjection.print();
+        if( someInjection == null){
+            System.out.println("someInjection object is null");
+        }
+
+        else{
+            someInjection.print();
+        }
     }
 
 
