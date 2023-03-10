@@ -3,17 +3,18 @@ package spring;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 
+
 public class AutowiredSample {
 
 
     private SomeInjection someInjection;
 
     public AutowiredSample(){
-        this.someInjection = new SomeInjection();
+        this.someInjection = new SomeInjection("생성자");
     }
 
-    @Autowired
-    public void setSomeInjection(@Nullable SomeInjection someInjection) {
+    @Autowired(required = false)
+    public void setSomeInjection(SomeInjection someInjection) {
         this.someInjection = someInjection;
     }
 

@@ -11,7 +11,7 @@ public class AppConf3 {
 
 //    @Bean
 //    public SomeInjection someInjection(){
-//        return new SomeInjection();
+//        return new SomeInjection("setter");
 //    }
 
     @Bean
