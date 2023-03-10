@@ -9,10 +9,10 @@ import spring.SomeInjection;
 @Configuration
 public class AppConf3 {
 
-    @Bean
-    public SomeInjection someInjection(){
-        return new SomeInjection();
-    }
+//    @Bean
+//    public SomeInjection someInjection(){
+//        return new SomeInjection();
+//    }
 
     @Bean
     public AutowiredSample autowiredSample(){
