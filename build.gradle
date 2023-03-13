@@ -13,6 +13,9 @@ repositories {
 }
 
 dependencies {
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.45'
+	implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '8.5.27'
+	implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.0.2.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
