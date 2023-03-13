@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @Configuration
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AOPConf {
 
     @Bean
@@ -20,4 +20,5 @@ public class AOPConf {
     public Calculator calculator(){
         return new RecCalculator();
     }
+
 }
