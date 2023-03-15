@@ -17,21 +17,7 @@ public class MemberDao {
 
     public Member selectByEmail(String email){
 
-    List<Member> members = jdbcTemplate.query("select * from member WHERE EMAIL = ?",(ResultSet rs, int rowNum)->{
-
-            Member member = new Member(
-
-                rs.getString("EMAIL"),
-                rs.getString("PWD"),
-                rs.getString("USERNAME"),
-                rs.getTimestamp("REGDATE").toLocalDateTime());
-
-            member.setId(rs.getLong("ID"));
-
-            return member;
-
-
-        },email);
+    List<Member> members = jdbcTemplate.query("select * from member WHERE EMAIL = ?",new MemberRowMapper(),email);
 
         return members.isEmpty() ? null : members.get(0);
     }
@@ -44,19 +30,7 @@ public class MemberDao {
 
     public List<Member> selectAll(){
 
-        List<Member> members = jdbcTemplate.query("select * from member",(ResultSet rs, int rowNum)->{
-
-            Member member = new Member(
-
-                    rs.getString("EMAIL"),
-                    rs.getString("PWD"),
-                    rs.getString("USERNAME"),
-                    rs.getTimestamp("REGDATE").toLocalDateTime());
-
-            member.setId(rs.getLong("ID"));
-
-            return member;
-        });
+        List<Member> members = jdbcTemplate.query("select * from member",new MemberRowMapper());
 
         return members;
 
