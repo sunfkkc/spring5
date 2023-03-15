@@ -13,8 +13,12 @@ public class AppCtx {
         DataSource ds = new DataSource();
         ds.setDriverClassName("com.mysql.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/spring5fs?characterEncoding=utf8");
+        //TODO: 환경변수 설정
+        ds.setUsername("root");
+        ds.setPassword("root");
         ds.setInitialSize(2);
         ds.setMaxActive(10);
+        ds.setMaxIdle(10);
         return ds;
 
     }
