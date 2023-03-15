@@ -37,12 +37,29 @@ public class MemberDao {
     }
 
 
+
     public void insert(Member member){}
 
     public void update(Member member){}
 
-    public Collection<Member> selectAll(){
-        return null;
+    public List<Member> selectAll(){
+
+        List<Member> members = jdbcTemplate.query("select * from member",(ResultSet rs, int rowNum)->{
+
+            Member member = new Member(
+
+                    rs.getString("EMAIL"),
+                    rs.getString("PWD"),
+                    rs.getString("USERNAME"),
+                    rs.getTimestamp("REGDATE").toLocalDateTime());
+
+            member.setId(rs.getLong("ID"));
+
+            return member;
+        });
+
+        return members;
+
     }
 
 
