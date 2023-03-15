@@ -3,7 +3,9 @@ package DBConnection;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.util.Collection;
+import java.util.List;
 
 public class MemberDao {
 
@@ -15,8 +17,25 @@ public class MemberDao {
 
     public Member selectByEmail(String email){
 
-        return null;
+    List<Member> members = jdbcTemplate.query("select * from member WHERE EMAIL = ?",(ResultSet rs, int rowNum)->{
+
+            Member member = new Member(
+
+                rs.getString("EMAIL"),
+                rs.getString("PWD"),
+                rs.getString("USERNAME"),
+                rs.getTimestamp("REGDATE").toLocalDateTime());
+
+            member.setId(rs.getLong("ID"));
+
+            return member;
+
+
+        },email);
+
+        return members.isEmpty() ? null : members.get(0);
     }
+
 
     public void insert(Member member){}
 
@@ -25,4 +44,8 @@ public class MemberDao {
     public Collection<Member> selectAll(){
         return null;
     }
+
+
+
+
 }
