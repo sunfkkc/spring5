@@ -15,6 +15,9 @@ dependencies {
     providedRuntime 'javax.servlet.jsp:javax.servlet.jsp-api:2.3.2-b02'
     implementation 'javax.servlet:jstl:1.2'
     implementation 'org.springframework:spring-webmvc:5.0.2.RELEASE'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '5.1.45'
+    implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '8.5.27'
+    implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.0.2.RELEASE'
 }
 
 wrapper {
