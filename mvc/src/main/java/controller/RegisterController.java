@@ -14,5 +14,14 @@ public class RegisterController {
         return "register/step1";
     }
 
+    @PostMapping("/step2")
+    public String handleStep2(
+            @RequestParam(value = "agree", defaultValue = "false") Boolean agree
+    ){
+        if( !agree) return "redirect:/register/step1";
+
+        return "register/step2";
+    }
+
 
 }
