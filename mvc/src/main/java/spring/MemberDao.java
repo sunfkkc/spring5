@@ -31,8 +31,8 @@ public class MemberDao {
                     public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
                         Member member = new Member(
                                 rs.getString("EMAIL"),
-                                rs.getString("PASSWORD"),
-                                rs.getString("NAME"),
+                                rs.getString("PWD"),
+                                rs.getString("USERNAME"),
                                 rs.getTimestamp("REGDATE").toLocalDateTime());
                         member.setId(rs.getLong("ID"));
                         return member;
@@ -50,7 +50,7 @@ public class MemberDao {
                     throws SQLException {
                 // 파라미터로 전달받은 Connection을 이용해서 PreparedStatement 생성
                 PreparedStatement pstmt = con.prepareStatement(
-                        "insert into MEMBER (EMAIL, PASSWORD, NAME, REGDATE) " +
+                        "insert into MEMBER (EMAIL, PWD, USERNAME, REGDATE) " +
                                 "values (?, ?, ?, ?)",
                         new String[] { "ID" });
                 // 인덱스 파라미터 값 설정
@@ -69,7 +69,7 @@ public class MemberDao {
 
     public void update(Member member) {
         jdbcTemplate.update(
-                "update MEMBER set NAME = ?, PASSWORD = ? where EMAIL = ?",
+                "update MEMBER set USERNAME = ?, PWD = ? where EMAIL = ?",
                 member.getName(), member.getPassword(), member.getEmail());
     }
 
@@ -78,8 +78,8 @@ public class MemberDao {
                 (ResultSet rs, int rowNum) -> {
                     Member member = new Member(
                             rs.getString("EMAIL"),
-                            rs.getString("PASSWORD"),
-                            rs.getString("NAME"),
+                            rs.getString("PWD"),
+                            rs.getString("USERNAME"),
                             rs.getTimestamp("REGDATE").toLocalDateTime());
                     member.setId(rs.getLong("ID"));
                     return member;
