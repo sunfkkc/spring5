@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import chap09.HelloController;
 import spring.MemberRegisterService;
+import survey.SurveyController;
 
 @Configuration
 public class ControllerConfig {
@@ -26,4 +27,9 @@ public class ControllerConfig {
         return new HelloController();
     }
 
+
+    @Bean
+    public SurveyController surveyController(){
+        return new SurveyController();
+    }
 }
