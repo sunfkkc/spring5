@@ -12,6 +12,7 @@
         <label>이메일:<br>
         <input type="text" name="email" id="email" value="${registerRequest.email}">
         </label>
+        <form:errors path="email"/>
     </p>
     <p>
         <label>이름:<br>
