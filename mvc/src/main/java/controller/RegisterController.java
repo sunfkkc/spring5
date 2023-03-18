@@ -1,6 +1,7 @@
 package controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +19,14 @@ public class RegisterController {
         this.memberRegisterService = memberRegisterService;
     }
 
-    @RequestMapping("/step1")
+    @GetMapping("/step1")
     public String handleStep1(){
         return "register/step1";
+    }
+
+    @GetMapping("/step2")
+    public String showStep2(){
+        return "register/step2";
     }
 
     @PostMapping("/step2")
