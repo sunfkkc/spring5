@@ -1,7 +1,14 @@
 package controller;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 public class LoginCommand {
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String password;
     private boolean rememberEmail;
 
