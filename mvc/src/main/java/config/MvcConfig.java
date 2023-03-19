@@ -1,6 +1,8 @@
 package config;
 
+import controller.RegisterRequestValidator;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.Validator;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -20,4 +22,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.jsp("/WEB-INF/view/", ".jsp");
     }
 
+    @Override
+    public Validator getValidator() {
+        return new RegisterRequestValidator();
+    }
 }
