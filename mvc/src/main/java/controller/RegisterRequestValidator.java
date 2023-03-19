@@ -15,7 +15,8 @@ public class RegisterRequestValidator implements Validator {
     public void validate(Object target, Errors errors) {
         RegisterRequest request = (RegisterRequest) target;
         if( request.getEmail() == null || request.getEmail().trim().isEmpty()){
-            errors.rejectValue("email","필수사항");
+            System.out.println("operate email validation");
+            errors.rejectValue("email","email","필수사항");
         }
     }
 }
