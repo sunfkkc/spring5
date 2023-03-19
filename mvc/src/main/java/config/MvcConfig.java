@@ -22,8 +22,4 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.jsp("/WEB-INF/view/", ".jsp");
     }
 
-    @Override
-    public Validator getValidator() {
-        return new RegisterRequestValidator();
-    }
 }
