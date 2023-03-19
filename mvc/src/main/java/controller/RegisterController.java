@@ -10,6 +10,8 @@ import spring.DuplicateMemberException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
@@ -40,10 +42,8 @@ public class RegisterController {
     }
 
     @PostMapping("/step3")
-    public String handleStep3(RegisterRequest regReq, Errors errors){
+    public String handleStep3(@Valid RegisterRequest regReq, Errors errors){
 
-        //TODO: 이메일 항목이 비어있을 때 step2로 라우팅 되지 않고 step3로 라우팅 됨
-        new RegisterRequestValidator().validate(regReq,errors);
         if( errors.hasErrors()) {
             return "register/step2";
         }
