@@ -1,5 +1,6 @@
 package config;
 
+import controller.ChangePwdController;
 import controller.LoginController;
 import controller.LogoutController;
 import controller.RegisterController;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import chap09.HelloController;
 import spring.AuthService;
+import spring.ChangePasswordService;
 import spring.MemberRegisterService;
 import survey.SurveyController;
 
@@ -19,6 +21,8 @@ public class ControllerConfig {
     private MemberRegisterService memberRegisterService;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private ChangePasswordService changePasswordService;
 
     @Bean
     public RegisterController registerController(){
@@ -46,5 +50,10 @@ public class ControllerConfig {
     @Bean
     public LogoutController logoutController(){
         return new LogoutController();
+    }
+
+    @Bean
+    public ChangePwdController changePwdController(){
+        return new ChangePwdController();
     }
 }
