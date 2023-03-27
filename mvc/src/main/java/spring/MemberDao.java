@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -18,6 +19,19 @@ import org.springframework.jdbc.support.KeyHolder;
 public class MemberDao {
 
     private JdbcTemplate jdbcTemplate;
+    private RowMapper<Member> memRowMapper =
+            new RowMapper<Member>() {
+                @Override
+                public Member mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Member member = new Member(rs.getString("EMAIL"),
+                            rs.getString("PASSWORD"),
+                            rs.getString("NAME"),
+                            rs.getTimestamp("REGDATE").toLocalDateTime());
+                    member.setId(rs.getLong("ID"));
+                    return member;
+                }
+            };
 
     public MemberDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -26,18 +40,7 @@ public class MemberDao {
     public Member selectByEmail(String email) {
         List<Member> results = jdbcTemplate.query(
                 "select * from MEMBER where EMAIL = ?",
-                new RowMapper<Member>() {
-                    @Override
-                    public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        Member member = new Member(
-                                rs.getString("EMAIL"),
-                                rs.getString("PWD"),
-                                rs.getString("USERNAME"),
-                                rs.getTimestamp("REGDATE").toLocalDateTime());
-                        member.setId(rs.getLong("ID"));
-                        return member;
-                    }
-                }, email);
+                memRowMapper, email);
 
         return results.isEmpty() ? null : results.get(0);
     }
@@ -50,7 +53,7 @@ public class MemberDao {
                     throws SQLException {
                 // 파라미터로 전달받은 Connection을 이용해서 PreparedStatement 생성
                 PreparedStatement pstmt = con.prepareStatement(
-                        "insert into MEMBER (EMAIL, PWD, USERNAME, REGDATE) " +
+                        "insert into MEMBER (EMAIL, PASSWORD, NAME, REGDATE) " +
                                 "values (?, ?, ?, ?)",
                         new String[] { "ID" });
                 // 인덱스 파라미터 값 설정
@@ -69,21 +72,13 @@ public class MemberDao {
 
     public void update(Member member) {
         jdbcTemplate.update(
-                "update MEMBER set USERNAME = ?, PWD = ? where EMAIL = ?",
+                "update MEMBER set NAME = ?, PASSWORD = ? where EMAIL = ?",
                 member.getName(), member.getPassword(), member.getEmail());
     }
 
     public List<Member> selectAll() {
         List<Member> results = jdbcTemplate.query("select * from MEMBER",
-                (ResultSet rs, int rowNum) -> {
-                    Member member = new Member(
-                            rs.getString("EMAIL"),
-                            rs.getString("PWD"),
-                            rs.getString("USERNAME"),
-                            rs.getTimestamp("REGDATE").toLocalDateTime());
-                    member.setId(rs.getLong("ID"));
-                    return member;
-                });
+                memRowMapper);
         return results;
     }
 
@@ -91,6 +86,23 @@ public class MemberDao {
         Integer count = jdbcTemplate.queryForObject(
                 "select count(*) from MEMBER", Integer.class);
         return count;
+    }
+
+    public List<Member> selectByRegdate(LocalDateTime from, LocalDateTime to) {
+        List<Member> results = jdbcTemplate.query(
+                "select * from MEMBER where REGDATE between ? and ? " +
+                        "order by REGDATE desc",
+                memRowMapper,
+                from, to);
+        return results;
+    }
+
+    public Member selectById(Long memId) {
+        List<Member> results = jdbcTemplate.query(
+                "select * from MEMBER where ID = ?",
+                memRowMapper, memId);
+
+        return results.isEmpty() ? null : results.get(0);
     }
 
 }
