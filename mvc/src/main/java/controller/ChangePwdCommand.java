@@ -1,8 +1,12 @@
 package controller;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class ChangePwdCommand {
 
+    @NotBlank
     private String currentPassword;
+    @NotBlank
     private String newPassword;
 
     public String getCurrentPassword() {
