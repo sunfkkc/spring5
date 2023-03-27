@@ -28,7 +28,12 @@ public class LoginController {
     }
 
     @GetMapping
-    public String form(LoginCommand loginCommand ){
+    public String form(LoginCommand loginCommand, @CookieValue(value = "REMEMBER" ,required = false) Cookie rCookie){
+
+        if(rCookie != null){
+            loginCommand.setEmail(rCookie.getValue());
+            loginCommand.setRememberEmail(true);
+        }
         return "login/loginForm";
     }
 
