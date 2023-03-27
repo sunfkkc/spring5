@@ -1,6 +1,7 @@
 package config;
 
 import controller.LoginController;
+import controller.LogoutController;
 import controller.RegisterController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,5 +41,10 @@ public class ControllerConfig {
     @Bean
     public LoginController loginController(){
         return new LoginController();
+    }
+
+    @Bean
+    public LogoutController logoutController(){
+        return new LogoutController();
     }
 }
