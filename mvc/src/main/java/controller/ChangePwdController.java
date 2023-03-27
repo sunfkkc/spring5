@@ -22,7 +22,12 @@ public class ChangePwdController {
     private ChangePasswordService changePasswordService;
 
     @GetMapping
-    public String form(@ModelAttribute("command") ChangePwdCommand pwdCommand){
+    public String form(@ModelAttribute("command") ChangePwdCommand pwdCommand, HttpSession session){
+
+        AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+        if(authInfo==null){
+            return "redirect:/login";
+        }
         return "edit/changePwdForm";
     }
 
