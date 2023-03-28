@@ -3,6 +3,8 @@ package spring;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.time.LocalDateTime;
+
 public class RegisterRequest {
 
 
@@ -12,6 +14,7 @@ public class RegisterRequest {
     private String password;
     private String confirmPassword;
     private String name;
+    private LocalDateTime birthDateTime;
 
     public String getEmail() {
         return email;
