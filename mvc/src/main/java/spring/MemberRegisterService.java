@@ -14,9 +14,10 @@ public class MemberRegisterService {
         if (member != null) {
             throw new DuplicateMemberException("dup email " + req.getEmail());
         }
+        System.out.println(member);
         Member newMember = new Member(
                 req.getEmail(), req.getPassword(), req.getName(),
-                LocalDateTime.now());
+                LocalDateTime.now(), req.getBirthDate());
         memberDao.insert(newMember);
         return newMember.getId();
     }

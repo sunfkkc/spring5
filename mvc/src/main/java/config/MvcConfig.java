@@ -1,6 +1,7 @@
 package config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import controller.RegisterRequestValidator;
@@ -52,11 +53,11 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
 
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-
-        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().serializerByType(LocalDateTime.class,new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).build();
-
-        converters.add(0,new MappingJackson2HttpMessageConverter(objectMapper));
-    }
+//    @Override
+//    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().deserializerByType(LocalDateTime.class,new LocalDateTimeDeserializer(formatter)).serializerByType(LocalDateTime.class,new LocalDateTimeSerializer(formatter)).build();
+//
+//        converters.add(0,new MappingJackson2HttpMessageConverter(objectMapper));
+//    }
 }

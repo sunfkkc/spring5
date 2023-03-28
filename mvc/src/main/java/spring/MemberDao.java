@@ -1,10 +1,7 @@
 package spring;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,10 +21,16 @@ public class MemberDao {
                 @Override
                 public Member mapRow(ResultSet rs, int rowNum)
                         throws SQLException {
+                    LocalDate birthDate = null;
+                    if( rs.getDate("BIRTHDATE") !=null){
+                        birthDate = rs.getDate("BIRTHDATE").toLocalDate();
+                    }
+
+
                     Member member = new Member(rs.getString("EMAIL"),
                             rs.getString("PWD"),
                             rs.getString("USERNAME"),
-                            rs.getTimestamp("REGDATE").toLocalDateTime());
+                            rs.getTimestamp("REGDATE").toLocalDateTime(), birthDate );
                     member.setId(rs.getLong("ID"));
                     return member;
                 }
@@ -53,8 +56,8 @@ public class MemberDao {
                     throws SQLException {
                 // 파라미터로 전달받은 Connection을 이용해서 PreparedStatement 생성
                 PreparedStatement pstmt = con.prepareStatement(
-                        "insert into MEMBER (EMAIL, PWD, USERNAME, REGDATE) " +
-                                "values (?, ?, ?, ?)",
+                        "insert into MEMBER (EMAIL, PWD, USERNAME, REGDATE,BIRTHDATE) " +
+                                "values (?, ?, ?, ?, ?)",
                         new String[] { "ID" });
                 // 인덱스 파라미터 값 설정
                 pstmt.setString(1, member.getEmail());
@@ -62,6 +65,9 @@ public class MemberDao {
                 pstmt.setString(3, member.getName());
                 pstmt.setTimestamp(4,
                         Timestamp.valueOf(member.getRegisterDateTime()));
+                pstmt.setDate(5,Date.valueOf(member.getBirthDate()));
+//                pstmt.setTimestamp(5,Timestamp.valueOf(member.getBirthDate()));
+
                 // 생성한 PreparedStatement 객체 리턴
                 return pstmt;
             }

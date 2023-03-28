@@ -1,8 +1,12 @@
 package spring;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.lang.Nullable;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class RegisterRequest {
@@ -14,7 +18,17 @@ public class RegisterRequest {
     private String password;
     private String confirmPassword;
     private String name;
-    private LocalDateTime birthDateTime;
+    @Nullable
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public String getEmail() {
         return email;

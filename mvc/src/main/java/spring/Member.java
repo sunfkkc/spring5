@@ -1,6 +1,11 @@
 package spring;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.lang.Nullable;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.sql.Date;
 
 public class Member {
 
@@ -8,7 +13,24 @@ public class Member {
     private String email;
     private String password;
     private String name;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime registerDateTime;
+    @Nullable
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public Member(String email, String password, String name, LocalDateTime registerDateTime, LocalDate birthDate) {
+        this(email,password,name,registerDateTime);
+        this.birthDate = birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public Member(String email, String password,
                   String name, LocalDateTime regDateTime) {
@@ -52,4 +74,15 @@ public class Member {
         return this.password.equals(password);
     }
 
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", registerDateTime=" + registerDateTime +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }
