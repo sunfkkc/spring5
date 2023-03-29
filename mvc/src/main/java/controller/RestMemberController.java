@@ -6,9 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring.*;
 
-import javax.servlet.http.HttpServletResponse;
+
 import javax.validation.Valid;
 import java.io.IOException;
+
 import java.util.List;
 
 @RestController
@@ -38,14 +39,14 @@ public class RestMemberController {
     }
 
     @PostMapping("/api/members")
-    public void newMember(@RequestBody @Valid RegisterRequest request, HttpServletResponse response) throws IOException{
+    public ResponseEntity<Object> newMember(@RequestBody @Valid RegisterRequest request) throws IOException{
 
         try{
             Long newMemberId = memberRegisterService.regist(request);
-            response.setHeader("Location","/api/members/"+newMemberId);
-            response.setStatus(HttpServletResponse.SC_CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body(memberDao.selectById(newMemberId));
+
         }catch (DuplicateMemberException e){
-            response.sendError(HttpServletResponse.SC_CONFLICT);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("이메일 중복입니다."));
         }
     }
 }
