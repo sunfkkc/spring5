@@ -26,16 +26,21 @@ public class RestMemberController {
     }
 
     @GetMapping("/api/members/{id}")
-    public ResponseEntity<Object> member(@PathVariable Long id) throws IOException {
+    public Member member(@PathVariable Long id) throws IOException {
         Member member = memberDao.selectById(id);
         if(member==null) {
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("no member"));
+            throw new MemberNotFoundException();
 
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(member);
+        return member;
 
+    }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNoData(){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("no member"));
     }
 
     @PostMapping("/api/members")
