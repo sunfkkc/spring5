@@ -15,7 +15,7 @@ import springboot.config.auth.dto.SessionUser;
 @RequiredArgsConstructor
 @Component
 public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver {
-    private HttpSession httpSession;
+    private final HttpSession httpSession;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
