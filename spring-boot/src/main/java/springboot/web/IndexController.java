@@ -17,7 +17,6 @@ import springboot.web.dto.PostsResponseDto;
 @RequiredArgsConstructor
 public class IndexController {
     private final PostsService postsService;
-    private final HttpSession httpSession;
 
     @GetMapping("/")
     public String index(Model model, @LoginUser SessionUser user){
