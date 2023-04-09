@@ -23,14 +23,27 @@ before_deploy:
   - mv spring-boot.zip deploy/spring-boot.zip
 
 deploy:
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
-  bucket: kkc-spring-boot-build
-  region: ap-northeast-2
-  skip_cleanup: true
-  acl: private
-  local_dir: deploy
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: kkc-spring-boot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: kkc-spring-boot-build
+    key: spring-boot.zip
+    bundle_type: zip
+    application: spring-boot
+    deployment_group: spring-boot-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 
 
 notifications:
