@@ -14,6 +14,7 @@ cache:
 
 script:
   - 'cd ./spring-boot'
+  - 'chmod +x ./gradlew'
   - './gradlew clean build'
 
 notifications:
