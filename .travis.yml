@@ -17,6 +17,20 @@ script:
   - 'chmod +x ./gradlew'
   - './gradlew clean build'
 
+before_deploy:
+  - zip -r spring-boot *
+  - mkdir -p deploy
+  - mv spring-boot.zip deploy/spring-boot.zip
+
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  bucket: kkc-spring-boot-build
+  region: ap-northeast-2
+  skip_cleanup: true
+
+
 notifications:
   email:
     recipients:
