@@ -29,6 +29,8 @@ deploy:
   bucket: kkc-spring-boot-build
   region: ap-northeast-2
   skip_cleanup: true
+  acl: private
+  local_dir: deploy
 
 
 notifications:
