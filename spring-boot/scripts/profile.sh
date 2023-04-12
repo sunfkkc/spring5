@@ -15,8 +15,9 @@ function find_idle_profile() {
 
 
     if [ ${CURRENT_PROFILE} == real1 ]; then
-        IDLE_PROFILE=real2; else
-          IDLE_PROFILE=real1;
+        IDLE_PROFILE=real2
+    else
+        IDLE_PROFILE=real1
     fi
 
 
@@ -27,8 +28,9 @@ function find_idle_port() {
     IDLE_PROFILE=$(find_idle_profile)
 
     if [ ${IDLE_PROFILE} == real1 ]; then
-      echo "8081"; else
-        echo "8082";
+      echo "8081"
+    else
+      echo "8082"
 
     fi
 }
